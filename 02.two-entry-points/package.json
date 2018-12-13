@@ -1,0 +1,16 @@
+{
+  "name": "02.two-entry-points",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack -p"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "webpack": "4.27.1",
+    "webpack-cli": "3.1.2"
+  }
+}
