@@ -1,5 +1,14 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const autoprefixer = require('autoprefixer');
+
+// adds prefixes to styles for different browsers
+const autoprefixerLoader = {
+  loader: 'postcss-loader',
+  options: {
+    plugins: () => [autoprefixer()],
+  },
+}
 
 module.exports = {
   entry: './index.js',
@@ -20,7 +29,8 @@ module.exports = {
               publicPath: '.'
             }
           },
-          'css-loader'
+          'css-loader',
+          autoprefixerLoader
         ]
       },
       {
@@ -28,6 +38,7 @@ module.exports = {
         use: [
           MiniCssExtractPlugin.loader, // the most basic usage
           'css-loader',
+          autoprefixerLoader,
           'sass-loader'
         ]
       }

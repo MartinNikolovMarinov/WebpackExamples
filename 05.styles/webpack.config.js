@@ -1,4 +1,13 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const autoprefixer = require('autoprefixer');
+
+// adds prefixes to styles for different browsers
+const autoprefixerLoader = {
+  loader: 'postcss-loader',
+  options: {
+    plugins: () => [autoprefixer()],
+  },
+}
 
 module.exports = {
   entry: './index.js',
@@ -7,14 +16,25 @@ module.exports = {
   },
   mode: 'production',
   module: {
-    rules:[
+    rules: [
       {
         test: /\.css$/, // resolve files ending in .css
-        use: [ 'style-loader', 'css-loader' ] // first use css-loader to compile css files and then use style-loader on the output of css-loader.
+        // loaders are executed in reverse order :
+        use: [
+          'style-loader',     // load those string in style tags
+          'css-loader',       // load css files into string
+          autoprefixerLoader  // add prefixes
+        ]
       },
       {
         test: /\.scss$/, // resolve files ending in .scss
-        use: ['style-loader', 'css-loader', 'sass-loader'], // first use the sass-loader to convert to css, after that same as above.
+        // loaders are executed in reverse order :
+        use: [
+          'style-loader',     // load those string in style tags
+          'css-loader',       // load css files into string
+          autoprefixerLoader, // add prefixes
+          'sass-loader'       // convert sass files to css
+        ],
       }
     ]
   },
