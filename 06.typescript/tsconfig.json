@@ -8,6 +8,11 @@
     "jsx": "react",
     "allowJs": true,
     "sourceMap": true,
+    "emitBOM": true,
+    "experimentalDecorators": true,
+    "forceConsistentCasingInFileNames": true,
+    "importHelpers": true,
+    "removeComments": true,
     "typeRoots": [
       "./node_modules/@types/**"
     ],

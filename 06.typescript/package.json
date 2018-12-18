@@ -6,7 +6,8 @@
   "scripts": {
     "clean": "rimraf dist",
     "build": "npm run clean && webpack --config webpack.config.js",
-    "start": "npm run build && webpack-dev-server --progress --hot --inline"
+    "start": "npm run build && webpack-dev-server --progress --inline",
+    "watch": "webpack --config webpack.config.js --watch"
   },
   "author": "",
   "license": "ISC",
@@ -21,6 +22,7 @@
     "typescript": "3.2.1",
     "webpack": "4.27.1",
     "webpack-cli": "3.1.2",
-    "webpack-dev-server": "3.1.10"
+    "webpack-dev-server": "3.1.10",
+    "webpack-manifest-plugin": "2.0.4"
   }
 }

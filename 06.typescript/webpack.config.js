@@ -1,5 +1,6 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const webpack = require('webpack');
+const ManifestPlugin = require('webpack-manifest-plugin')
+const webpack = require('webpack')
 const path = require('path')
 
 const DIST_DIR = path.join(__dirname, 'dist')
@@ -12,12 +13,11 @@ module.exports = {
   output: {
     path: DIST_DIR,
     publicPath: 'http://localhost:3000/',
-    filename: '[name].[hash].js',
-    sourceMapFilename: '[name].js'
+    filename: '[name].[hash].js'
   },
   context: SRC_DIR,
   mode: 'development',
-  devtool: 'inline-source-map',
+  devtool: 'source-map',
   module: {
     rules: [
       {
@@ -34,14 +34,20 @@ module.exports = {
     contentBase: '.',
     hot: true,
     host: 'localhost',
-    port: 3000,
-    open: true,
+    port: 3000
   },
   plugins: [
     new HtmlWebpackPlugin({
       template: path.join(__dirname, 'index.html'),
       filename: 'index.html'
     }),
-    new webpack.HotModuleReplacementPlugin()
+    new webpack.HotModuleReplacementPlugin(),
+    new ManifestPlugin({
+      fileName: 'manifest.json',
+      publicPath: `${DIST_DIR}\\`,
+      seed: {
+        name: 'Application Manifest'
+      }
+    })
   ]
 }
