@@ -6,11 +6,10 @@ const SRC_DIR = path.join(__dirname, 'src')
 
 const commonConfig = {
   entry: {
-    bundle: path.resolve(SRC_DIR, 'index.tsx')
+    index: path.resolve(SRC_DIR, 'index.tsx')
   },
   output: {
-    path: DIST_DIR,
-    filename: '[name].js'
+    path: DIST_DIR
   },
   context: SRC_DIR,
   module: {
@@ -31,23 +30,16 @@ const commonConfig = {
   optimization: {
     splitChunks: {
       cacheGroups: {
-        react: {
-          chunks: 'all',
-          name: 'react',
-          test: /[\\/]node_modules[\\/]react.*[\\/]/
-        },
-        lodash: {
-          chunks: 'all',
-          name: 'common',
-          test: /[\\/]node_modules[\\/]lodash.*[\\/]/
-        },
         commons: {
-          chunks: 'all',
-          name: 'common',
-          test: /[\\/]node_modules[\\/]lodash.*[\\/]/
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendor',
+          chunks: 'all'
         }
       }
-    }
+    },
+    runtimeChunk: {
+      name: 'runtime'
+    },
   }
 }
 

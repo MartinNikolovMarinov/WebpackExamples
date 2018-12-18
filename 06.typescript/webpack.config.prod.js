@@ -7,7 +7,9 @@ module.exports = (env) => {
 
   const prodConfig = {
     output: {
-      publicPath: '.'
+      publicPath: '.',
+      filename: '[name].[hash].bundle.js',
+      chunkFilename: '[name].[hash].bundle.js'
     },
     mode: 'none',
     devtool: 'none',

@@ -10,7 +10,9 @@ module.exports = (env) => {
   const devConfig = {
     output: {
       pathinfo: true,
-      publicPath: 'http://localhost:3000/'
+      publicPath: 'http://localhost:3000/',
+      filename: '[name].bundle.js',
+      chunkFilename: '[name].bundle.js'
     },
     mode: 'development',
     devtool: 'source-map',
