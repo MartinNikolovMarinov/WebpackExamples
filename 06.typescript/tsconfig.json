@@ -3,7 +3,7 @@
     "outDir": "./dist/",
     "baseUrl": ".",
     "noImplicitAny": true,
-    "module": "es2015",
+    "module": "commonjs",
     "target": "es5",
     "jsx": "react",
     "allowJs": true,
@@ -19,6 +19,7 @@
     "types": [
       "react",
       "react-dom",
+      "lodash"
     ],
     "lib": [
       "dom",

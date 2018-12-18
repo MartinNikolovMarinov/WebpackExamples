@@ -5,24 +5,31 @@
   "main": "index.js",
   "scripts": {
     "clean": "rimraf dist",
-    "build": "npm run clean && webpack --config webpack.config.js",
+    "build": "npm run clean && webpack --config webpack.config.dev.js",
     "start": "npm run build && webpack-dev-server --progress --inline",
-    "watch": "webpack --config webpack.config.js --watch"
+    "watch": "npm run clean && webpack --config webpack.config.dev.js --watch",
+    "prod": "npm run clean && webpack --config webpack.config.prod.js",
+    "analyze:dev": "webpack --env.analyze --config webpack.config.dev.js",
+    "analyze:prod": "webpack --env.analyze --config webpack.config.prod.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@types/lodash": "4.14.119",
     "@types/react": "16.7.17",
     "@types/react-dom": "16.0.11",
     "html-webpack-plugin": "3.2.0",
+    "lodash": "4.17.11",
     "react": "16.6.3",
     "react-dom": "16.6.3",
     "rimraf": "2.6.2",
     "ts-loader": "5.3.1",
     "typescript": "3.2.1",
     "webpack": "4.27.1",
+    "webpack-bundle-analyzer": "3.0.3",
     "webpack-cli": "3.1.2",
     "webpack-dev-server": "3.1.10",
-    "webpack-manifest-plugin": "2.0.4"
+    "webpack-manifest-plugin": "2.0.4",
+    "webpack-merge": "4.1.5"
   }
 }
