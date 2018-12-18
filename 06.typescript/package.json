@@ -9,8 +9,8 @@
     "start": "npm run build && webpack-dev-server --progress --inline",
     "watch": "npm run clean && webpack --config webpack.config.dev.js --watch",
     "prod": "npm run clean && webpack --config webpack.config.prod.js",
-    "analyze:dev": "webpack --env.analyze --config webpack.config.dev.js",
-    "analyze:prod": "webpack --env.analyze --config webpack.config.prod.js"
+    "analyze:dev": "npm run clean && webpack --env.analyze --config webpack.config.dev.js",
+    "analyze:prod": "npm run clean && webpack --env.analyze --config webpack.config.prod.js"
   },
   "author": "",
   "license": "ISC",
@@ -18,6 +18,7 @@
     "@types/lodash": "4.14.119",
     "@types/react": "16.7.17",
     "@types/react-dom": "16.0.11",
+    "cache-loader": "1.2.5",
     "html-webpack-plugin": "3.2.0",
     "lodash": "4.17.11",
     "react": "16.6.3",

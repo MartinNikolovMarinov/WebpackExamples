@@ -10,26 +10,50 @@ const commonConfig = {
   },
   output: {
     path: DIST_DIR,
-    filename: '[name].[hash].js'
+    filename: '[name].js'
   },
   context: SRC_DIR,
   module: {
     rules: [
       {
         test: /\.tsx?$/,
-        use: 'ts-loader',
-        exclude: /node_modules/
+        use: [
+          'cache-loader',
+          'ts-loader',
+        ],
+        include: SRC_DIR
       }
     ]
   },
   resolve: {
     extensions: ['.tsx', '.ts', '.js', '.jsx']
+  },
+  optimization: {
+    splitChunks: {
+      cacheGroups: {
+        react: {
+          chunks: 'all',
+          name: 'react',
+          test: /[\\/]node_modules[\\/]react.*[\\/]/
+        },
+        lodash: {
+          chunks: 'all',
+          name: 'common',
+          test: /[\\/]node_modules[\\/]lodash.*[\\/]/
+        },
+        commons: {
+          chunks: 'all',
+          name: 'common',
+          test: /[\\/]node_modules[\\/]lodash.*[\\/]/
+        }
+      }
+    }
   }
 }
 
 
 module.exports = (env) => {
-  if (env.analyze) {
+  if (env && env.analyze) {
     if (!commonConfig.plugins) {
       commonConfig.plugins = []
     }
