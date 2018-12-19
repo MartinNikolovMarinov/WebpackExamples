@@ -24,7 +24,10 @@
     "lib": [
       "dom",
       "es6"
-    ]
+    ],
+    "paths": {
+      "~/*": [ "src/*" ],
+    }
   },
   "exclude": [
     "node_modules"

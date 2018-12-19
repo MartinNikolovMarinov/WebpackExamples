@@ -9,27 +9,33 @@ module.exports = (env) => {
 
   const devConfig = {
     output: {
-      pathinfo: true,
-      publicPath: 'http://localhost:3000/',
-      filename: '[name].bundle.js',
-      chunkFilename: '[name].bundle.js'
+      pathinfo: true, // include useful path info about modules, exports, requests, etc. into the generated code.
+      publicPath: 'http://localhost:3000/', // the url to the output directory, in this case to the web-dev-server hosted html page.
+      filename: '[name].[id].bundle.js', // the filename template for entry chunks.
+      chunkFilename: '[name].chunk.js' // the filename template for additional chunks.
     },
-    mode: 'development',
-    devtool: 'source-map',
+    mode: 'development', // chosen mode tells webpack to use its built-in optimizations accordingly.
+    devtool: 'source-map', // most detailed map at the expense of build speed. Can be removed to speed up build!
+    profile: true, // capture timing information. Can be removed to speed up build!
     devServer: {
-      contentBase: '.',
-      hot: true,
+      contentBase: '.', // Tells the server where to serve content from. This is only necessary if you serve static files.
+      hot: true, // Enable webpack's Hot Module Replacement feature.
       host: 'localhost',
       port: 3000
     },
-    cache: true, // gets added by mode=development by default
     plugins: [
       new HtmlWebpackPlugin({
-        template: path.join(__dirname, 'index.html'),
-        filename: 'index.html'
+        /**
+         * This plugin generates html from a provided template.
+         */
+        template: path.join(__dirname, 'index.html'), // path to the template.
+        filename: 'index.html' // name for the generated file.
       }),
       new webpack.HotModuleReplacementPlugin(),
       new ManifestPlugin({
+        /**
+         * Generates the webpack manifest file in the dist folder.
+         */
         fileName: 'manifest.json',
         publicPath: `${DIST_DIR}\\`,
         seed: {
