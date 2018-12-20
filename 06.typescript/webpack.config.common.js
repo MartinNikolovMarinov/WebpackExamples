@@ -1,4 +1,5 @@
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
+const webpack = require('webpack')
 const path = require('path')
 
 // DIST_DIR the directory which webpack will use to generate code.
@@ -50,13 +51,6 @@ const commonConfig = {
           'ts-loader',
         ],
         include: [ SRC_DIR ], // this tells webpack, exactly where to look for files and not waste time in other folders.
-        // exclude: [
-        //   /*
-        //    * exclude must not be matched (takes preference over test and include).
-        //    * It is pointless in this case, because of the above include!
-        //    */
-        //   'node_modules'
-        // ]
       }
     ]
   },
@@ -89,13 +83,24 @@ const commonConfig = {
 
 module.exports = (env) => {
   if (env && env.analyze) {
+    /**
+     * If environment variable analyze is passed, add plugins for more detailed analysis.
+     */
     if (!commonConfig.plugins) {
       commonConfig.plugins = []
     }
     commonConfig.plugins.push(
-      // This plugin is used to generate a visual and interactive analysis for the size of the generated bundles :
       new BundleAnalyzerPlugin({
+        /**
+         * This plugin is used to generate a visual and interactive analysis for the size of the generated bundles.
+         */
         statsOptions: path.resolve(__dirname, './chunk_report/report.html')
+      }),
+      new webpack.debug.ProfilingPlugin({
+        /**
+         * This plugin generates an profile json object that can be analyzed by chrome devTools.
+         */
+        outputPath: path.resolve(DIST_DIR, 'profileEvents.json')
       })
     )
   }

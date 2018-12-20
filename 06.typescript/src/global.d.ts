@@ -10,3 +10,5 @@ declare const module: {
     accept: (dependencies: string, callback: () => void) => void
   }
 };
+
+declare module '*.css';

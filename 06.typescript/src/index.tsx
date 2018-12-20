@@ -1,10 +1,24 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
-import { Hello } from './components/Hello';
+require('./styles/global.css');
+
+import Hello from './components/Hello';
+
+// function wait(t: number) {
+//   return new Promise((resolve) => {
+//     setTimeout(() => { resolve() }, t)
+//   })
+// }
 
 ReactDOM.render(
-  <Hello compiler="Babel" framework="pesho" />,
+  (
+    <div>
+      <React.Suspense fallback={<div>Loading...</div>}>
+        <Hello />
+      </React.Suspense>
+    </div>
+  ),
   document.getElementById("app")
 );
 

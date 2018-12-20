@@ -1,4 +1,8 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
+const autoprefixer = require('autoprefixer')
 const mergeConfigs = require('webpack-merge')
 const path = require('path')
 
@@ -13,7 +17,32 @@ module.exports = (env) => {
     },
     mode: 'production', // chosen mode tells webpack to use its built-in optimizations accordingly.
     devtool: 'none', // no source maps for production. Might want to have them for debug production code.
+    module: {
+      rules: [
+        {
+          test: /\.css$/,
+          use: [
+            MiniCssExtractPlugin.loader, // combines all those strings into chunks.
+            'css-loader', // loads css into strings.
+            {
+              /**
+               * adds prefixes to styles for different browsers.
+               */
+              loader: 'postcss-loader',
+              options: {
+                plugins: () => [autoprefixer()],
+              },
+            }
+          ]
+        },
+      ]
+    },
     plugins: [
+      new MiniCssExtractPlugin({
+        // extracts css to file chunks.
+        filename: '[name].css',
+        chunkFilename: '[id].css'
+      }),
       new HtmlWebpackPlugin({
         /**
          * This plugin generates html from a provided template.
@@ -29,7 +58,19 @@ module.exports = (env) => {
           useShortDoctype: true
         }
       })
-    ]
+    ],
+    optimization: {
+      minimizer: [
+        new UglifyJsPlugin({
+          /**
+           * This plugin minifies all generated javascript files.
+           */
+          cache: true,
+          parallel: true,
+        }),
+        new OptimizeCSSAssetsPlugin({}) // This plugin minifies all css files.
+      ]
+    },
   }
 
   return mergeConfigs(commonConfig, prodConfig)

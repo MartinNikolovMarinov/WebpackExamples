@@ -1,5 +1,6 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ManifestPlugin = require('webpack-manifest-plugin')
+const autoprefixer = require('autoprefixer')
 const webpack = require('webpack')
 const mergeConfigs = require('webpack-merge')
 const path = require('path')
@@ -22,6 +23,26 @@ module.exports = (env) => {
       hot: true, // Enable webpack's Hot Module Replacement feature.
       host: 'localhost',
       port: 3000
+    },
+    module: {
+      rules: [
+        {
+          test: /\.css$/, // resolve files ending in .css.
+          use: [
+            'style-loader',  // load those string in style tags.
+            'css-loader',    // load css files into string.
+            {
+              /**
+               * adds prefixes to styles for different browsers.
+               */
+              loader: 'postcss-loader',
+              options: {
+                plugins: () => [autoprefixer()],
+              },
+            }
+          ]
+        },
+      ]
     },
     plugins: [
       new HtmlWebpackPlugin({
