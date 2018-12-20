@@ -27,6 +27,8 @@
     ],
     "paths": {
       "~/*": [ "src/*" ],
+      "@assets/*": [ "assets/*" ],
+      "@styles/*": [ "src/styles/*" ],
     }
   },
   "exclude": [

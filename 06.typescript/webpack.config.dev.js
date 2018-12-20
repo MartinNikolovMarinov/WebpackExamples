@@ -17,7 +17,6 @@ module.exports = (env) => {
     },
     mode: 'development', // chosen mode tells webpack to use its built-in optimizations accordingly.
     devtool: 'source-map', // most detailed map at the expense of build speed. Can be removed to speed up build!
-    profile: true, // capture timing information. Can be removed to speed up build!
     devServer: {
       contentBase: '.', // Tells the server where to serve content from. This is only necessary if you serve static files.
       hot: true, // Enable webpack's Hot Module Replacement feature.

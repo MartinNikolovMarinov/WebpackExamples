@@ -1,0 +1,8 @@
+{
+  "typescript.suggest.paths": false,
+  "path-intellisense.mappings": {
+    "~": "${workspaceRoot}/src",
+    "@assets": "${workspaceRoot}/assets",
+    "@styles": "${workspaceRoot}/src/styles",
+  }
+}

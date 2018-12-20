@@ -11,4 +11,7 @@
 "watch": "npm run clean && webpack --config webpack.config.dev.js --watch",
 // Compile the project with production configuration :
 "prod": "npm run clean && webpack --config webpack.config.prod.js"
+// Analyze builds :
+"analyze:dev": "npm run clean && webpack --env.analyze --config webpack.config.dev.js",
+"analyze:prod": "npm run clean && webpack --env.analyze --config webpack.config.prod.js"
 ```

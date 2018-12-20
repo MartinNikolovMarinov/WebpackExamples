@@ -50,7 +50,23 @@ const commonConfig = {
           'cache-loader',
           'ts-loader',
         ],
-        include: [ SRC_DIR ], // this tells webpack, exactly where to look for files and not waste time in other folders.
+        include: [SRC_DIR], // this tells webpack, exactly where to look for files and not waste time in other folders.
+      },
+      {
+        test: /\.(png|jp(e*)g|svg)$/,
+        use: [
+          {
+            /**
+             * This loader transforms files into base64 URIs, or defaults to file-loader's behavior.
+             */
+            loader: 'url-loader',
+            options: {
+              limit: 8000, // Convert images < 8kb to base64 strings and inline them
+              name: 'assets/images/[hash]-[name].[ext]'
+            }
+          }
+        ],
+        include: [path.resolve(__dirname, 'assets')],
       }
     ]
   },
@@ -63,7 +79,9 @@ const commonConfig = {
       /**
        * a list of module name aliases, that we can use to navigate in code.
        */
-      '~': SRC_DIR
+      '~': SRC_DIR,
+      '@assets': path.resolve(__dirname, 'assets'),
+      '@styles': path.resolve(SRC_DIR, 'styles')
     }
   },
   optimization: {
@@ -86,6 +104,7 @@ module.exports = (env) => {
     /**
      * If environment variable analyze is passed, add plugins for more detailed analysis.
      */
+    commonConfig.profile = true // capture timing information.
     if (!commonConfig.plugins) {
       commonConfig.plugins = []
     }
