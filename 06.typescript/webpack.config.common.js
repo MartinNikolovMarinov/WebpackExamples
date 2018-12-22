@@ -17,7 +17,11 @@ const commonConfig = {
      * webpack starts generating it's dependency graph from index.tsx !
      * Every entry generates a different bundle with different dependency graph, in this case it is just one.
      */
-    index: path.resolve(SRC_DIR, 'index.tsx')
+    index: path.resolve(SRC_DIR, 'index.tsx'),
+    styles: [
+      path.resolve(SRC_DIR, 'styles', 'global.css'),
+      path.resolve(SRC_DIR, 'styles', 'bulma.css')
+    ],
   },
   output: {
     /**
@@ -62,7 +66,7 @@ const commonConfig = {
             loader: 'url-loader',
             options: {
               limit: 8000, // Convert images < 8kb to base64 strings and inline them
-              name: 'assets/images/[hash]-[name].[ext]'
+              name: '/assets/images/[hash]-[name].[ext]' // the path for the generated/copied image files
             }
           }
         ],
@@ -95,7 +99,7 @@ const commonConfig = {
      * script tags the HTML file should include to run the project.
      * !!
      */
-    runtimeChunk: true // Adds an additional chunk to each entrypoint containing only the runtime.
+    runtimeChunk: 'single' // Adds an additional chunk to each entrypoint containing only the runtime.
   }
 }
 
@@ -119,7 +123,7 @@ module.exports = (env) => {
         /**
          * This plugin generates an profile json object that can be analyzed by chrome devTools.
          */
-        outputPath: path.resolve(DIST_DIR, 'profileEvents.json')
+        outputPath: path.resolve(__dirname, '.profile-events.json')
       })
     )
   }

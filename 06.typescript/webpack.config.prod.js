@@ -41,7 +41,7 @@ module.exports = (env) => {
       new MiniCssExtractPlugin({
         // extracts css to file chunks.
         filename: '[name].css',
-        chunkFilename: '[id].css'
+        chunkFilename: '[name].[id].css'
       }),
       new HtmlWebpackPlugin({
         /**

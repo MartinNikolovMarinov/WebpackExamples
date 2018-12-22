@@ -5,7 +5,7 @@ declare var require: {
   context: (directory: string, useSubdirectories?: boolean, regExp?: RegExp) => any;
 };
 
-declare const module: {
+declare var module: {
   hot: {
     accept: (dependencies: string, callback: () => void) => void
   }
