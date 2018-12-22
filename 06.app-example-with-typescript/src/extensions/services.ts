@@ -1,7 +1,7 @@
 declare global {
   namespace jc {
     interface Core extends GetServiceOverloads {
-      addService?(name: string, service: ServiceClass): void
+      addService?(name: string, service: ServiceClass, ...args: any): void
     }
 
     interface Sandbox extends GetServiceOverloads {}
@@ -12,17 +12,17 @@ declare global {
   }
 }
 
-type ServiceClass = new(core: jc.Core) => any
+type ServiceClass = new(core: jc.Core, ...args: any[]) => any
 
 const servicesStack: string[] = []
-const servicesContainer: Record<string, { instance: any; type: ServiceClass }> = {}
+const servicesContainer: Record<string, { instance: any; type: ServiceClass; args?: any }> = {}
 const hasOwnProperty = Object.prototype.hasOwnProperty
 
 function isServiceBeingInstantiated(id: string): boolean {
   return servicesStack.indexOf(id) > -1
 }
 
-function addService(this: jc.Core, name: string, serviceClass: ServiceClass): void {
+function addService(this: jc.Core, name: string, serviceClass: ServiceClass, ...args: any[]): void {
   if (name === undefined) {
     throw new Error('addService(): name must be a non empty string')
   }
@@ -38,6 +38,7 @@ function addService(this: jc.Core, name: string, serviceClass: ServiceClass): vo
   servicesContainer[name] = {
     type: serviceClass,
     instance: null,
+    args: args,
   }
 }
 
@@ -55,8 +56,8 @@ function getService<T extends object>(this: jc.Core, name: string): T {
     throw new Error(`getService(): service circular dependency ${servicesStack.join(' -> ')} -> ${name}`)
   }
 
-  servicesStack.push(name)
-  serviceData.instance = new serviceData.type(this)
+  servicesStack.push(name) // handles circular dependencies.
+  serviceData.instance = new serviceData.type(this, ...serviceData.args)
   servicesStack.pop()
 
   return serviceData.instance as T

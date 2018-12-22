@@ -17,6 +17,10 @@ export interface Props {
 }
 
 export class MasterPageView extends React.Component<Props> {
+  constructor(props: any) {
+    super(props)
+  }
+
   public render(): React.ReactNode {
     return (
       <Wrapper>

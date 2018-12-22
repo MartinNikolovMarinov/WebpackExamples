@@ -1,19 +1,27 @@
+import { Logger } from '@services/LoggerService'
 import * as React from 'react'
 
 interface State {
   didCatch: boolean
 }
 
-export class ErrorBoundary extends React.PureComponent<{}, State> {
+interface Props {
+  sandbox: jc.Sandbox
+}
+
+export class ErrorBoundary extends React.PureComponent<Props, State> {
+  private readonly logger: Logger
+
   constructor(props: any) {
     super(props)
+    this.logger = this.props.sandbox.getService('log')
     this.state = { didCatch: false }
   }
 
   public componentDidCatch(error: Error, info: React.ErrorInfo): void {
     this.setState({ didCatch: true })
-    // console.error(error)
-    // console.error(info.componentStack)
+    this.logger.error(error)
+    this.logger.error(info.componentStack)
   }
 
   public render(): React.ReactNode {

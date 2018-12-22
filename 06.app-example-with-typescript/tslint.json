@@ -316,7 +316,7 @@
 
     "jsx-alignment": true,
     "jsx-boolean-value": [true, "always"],
-    "jsx-curly-spacing": [true, "always"],
+    "jsx-curly-spacing": [true, "never"],
     "jsx-equals-spacing": [true, "never"],
     "jsx-key": true,
     "jsx-no-bind": true,

@@ -24,15 +24,15 @@ function mountView<TProps>(
   props: TProps,
   root: HTMLElement,
 ): void {
-  if (View !== undefined) {
+  if (!View) {
     unmountComponentAtNode(root)
     return
   }
 
   normalizeViewDisplayName(View, this.moduleId)
   render(
-    <ErrorBoundary>
-      <View { ...props } />
+    <ErrorBoundary sandbox={this}>
+      <View {...props} />
     </ErrorBoundary>,
     root,
   )
@@ -43,7 +43,7 @@ function normalizeViewDisplayName(View: React.ComponentClass, moduleId: string):
 }
 
 function setRoot(this: jc.Module, next: jc.Func<void>, props?: { root?: HTMLElement }): void {
-  this.root = props !== undefined ? props.root : null
+  this.root = props ? props.root : null
   next()
 }
 
