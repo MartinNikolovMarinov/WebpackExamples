@@ -1,0 +1,1 @@
+export { MasterPageModule } from './MasterPageModule'

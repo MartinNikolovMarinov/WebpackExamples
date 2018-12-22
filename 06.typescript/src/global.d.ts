@@ -11,6 +11,12 @@ declare var module: {
   }
 };
 
+declare var process: {
+  env: {
+    NODE_ENV: string
+  }
+}
+
 declare module '*.css' {
   const value: any;
   export default value;

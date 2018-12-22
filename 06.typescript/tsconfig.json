@@ -22,13 +22,17 @@
     ],
     "lib": [
       "dom",
-      "es5",
+      "es6",
       "es2015.promise"
     ],
     "paths": {
       "~/*": [ "src/*" ],
       "@assets/*": [ "assets/*" ],
-      "@styles/*": [ "src/styles/*" ],
+      "@elements/*": [ "src/elements/*" ],
+      "@features/*": [ "src/features/*" ],
+      "@services/*": [ "src/services/*" ],
+      "@extensions/*": [ "src/extensions/*" ],
+      "@config/*": [ "src/config/*" ],
     }
   },
   "exclude": [

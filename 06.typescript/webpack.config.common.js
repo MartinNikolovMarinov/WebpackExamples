@@ -46,6 +46,18 @@ const commonConfig = {
        */
       {
         test: /\.tsx?$/, // regex rule to distinguish file extensions.
+        enforce: 'pre', // this rule is executed before the rest.
+        use: {
+          loader: 'tslint-loader', // this loader lints the project, according to the rules in ./tslint.json
+          options: {
+            tsConfigFile: path.resolve(__dirname, 'tsconfig.json'),
+            configFile: path.resolve(__dirname, 'tslint.json'),
+            typeCheck: true
+          }
+        }
+      },
+      {
+        test: /\.tsx?$/, // regex rule to distinguish file extensions.
         use: [
           /**
            * The loaders which should be applied. They are applied in reverse order.
@@ -85,7 +97,11 @@ const commonConfig = {
        */
       '~': SRC_DIR,
       '@assets': path.resolve(__dirname, 'assets'),
-      '@styles': path.resolve(SRC_DIR, 'styles')
+      '@elements': path.resolve(SRC_DIR, 'elements'),
+      '@features': path.resolve(SRC_DIR, 'features'),
+      '@services': path.resolve(SRC_DIR, 'services'),
+      '@extensions': path.resolve(SRC_DIR, 'extensions'),
+      '@config': path.resolve(SRC_DIR, 'config'),
     }
   },
   optimization: {

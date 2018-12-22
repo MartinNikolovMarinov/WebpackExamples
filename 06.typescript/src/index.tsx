@@ -1,32 +1,30 @@
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
+import { registerModules } from '@config/module-config'
+import { registerServices } from '@config/service-config'
+import { constants } from '@extensions/constants'
+import { mobxAdapter } from '@extensions/mobx-adapter'
+import { reactAdapter } from '@extensions/react-adapter'
+import { services } from '@extensions/services'
+import { Core } from 'justcore'
 
-import * as Png1 from '@assets/images/iconfinder_gear_1055051.png'    // 15kb gets added as a file
-import * as Svg1 from '@assets/images/iconfinder_go-home_118770.svg'  // 4kb gets inlined
+const app: jc.Core = new Core()
 
-import Hello from './components/Hello';
+app.use([
+  // Extensions here
+  constants(),
+  services(),
+  reactAdapter(),
+  mobxAdapter(),
+  // Use loginFlow(whenAuthorized)
+])
 
-// function wait(t: number) {
-//   return new Promise((resolve) => {
-//     setTimeout(() => { resolve() }, t)
-//   })
-// }
+app.init(() => {
+  // On INIT logic here
+  registerServices(app)
+  registerModules(app)
 
-ReactDOM.render(
-  (
-    <div>
-      <React.Suspense fallback={<div>Loading...</div>}>
-        <Hello />
-        <img src={String(Png1)}/>
-        <img src={String(Svg1)}/>
-      </React.Suspense>
-    </div>
-  ),
-  document.getElementById("app")
-);
-
-if (module.hot) {
-  module.hot.accept('./components/Hello', function() {
-    console.log('Accepting the updated Hello module!');
+  app.startModule(app.constants.MODULE_MASTER_PAGE, {
+    props: {
+      root: document.getElementById('root'),
+    },
   })
-}
+})

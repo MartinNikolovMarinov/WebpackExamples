@@ -1,8 +1,13 @@
 {
   "typescript.suggest.paths": false,
+  "tslint.configFile": "tslint.json",
   "path-intellisense.mappings": {
     "~": "${workspaceRoot}/src",
     "@assets": "${workspaceRoot}/assets",
-    "@styles": "${workspaceRoot}/src/styles",
+    "@elements": "${workspaceRoot}/src/elements",
+    "@features": "${workspaceRoot}/src/features",
+    "@services": "${workspaceRoot}/src/services",
+    "@extensions": "${workspaceRoot}/src/extensions",
+    "@config": "${workspaceRoot}/src/config",
   }
 }
