@@ -14,14 +14,16 @@ function enableDevtools(): void {
 function onAppInit(this: jc.Core, next: jc.Func<void>): void {
   next()
 
-  if (!this.getService('env').isProduction) {
-    configure({
-      enforceActions: 'always',
-      computedRequiresReaction: true,
-      disableErrorBoundaries: true,
-    })
-    enableDevtools()
+  if (this.getService('env').isProduction) {
+    return
   }
+
+  configure({
+    enforceActions: 'always',
+    computedRequiresReaction: true,
+    disableErrorBoundaries: true,
+  })
+  enableDevtools()
 }
 
 export function mobxAdapter(): jc.Extension {

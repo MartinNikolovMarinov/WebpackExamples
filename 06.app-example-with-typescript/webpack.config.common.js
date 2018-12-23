@@ -52,7 +52,8 @@ const commonConfig = {
           options: {
             tsConfigFile: path.resolve(__dirname, 'tsconfig.json'),
             configFile: path.resolve(__dirname, 'tslint.json'),
-            typeCheck: true
+            typeCheck: true,
+            failOnHint: true
           }
         }
       },

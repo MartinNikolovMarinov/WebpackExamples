@@ -11,7 +11,7 @@ declare global {
 }
 
 class Constants {
-  public MODULE_MASTER_PAGE: string = 'root'
+  public readonly MODULE_MASTER_PAGE: string = 'root'
 }
 
 export function constants(): jc.Extension {

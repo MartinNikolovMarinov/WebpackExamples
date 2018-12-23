@@ -13,7 +13,7 @@ const Wrapper: any = styled.section`
 `
 
 export interface Props {
-  sandbox: jc.Sandbox
+  // sandbox: jc.Sandbox
 }
 
 export class MasterPageView extends React.Component<Props> {

@@ -9,7 +9,7 @@ export enum LogLevel {
   NoLogging = 5,
 }
 
-enum LogType {
+const enum LogType {
   Trace = 0,
   Log = 1,
   Info = 2,
@@ -38,17 +38,17 @@ export class Logger {
   public setLevel(level: LogLevel): void { this.logLevel = level }
 
   private sink(level: LogLevel, type: LogType, args?: any[]): void {
-    if (this.logLevel <= level) {
-      const logPrefix = `[${LogLevel[level].toUpperCase()}] `
-      switch (type) {
-        case LogType.Trace: return console.trace()
-        case LogType.Error: return console.error(logPrefix, args)
-        case LogType.Warn: return console.warn(logPrefix, args)
-        case LogType.Info: return console.info(logPrefix, args)
-        case LogType.Log: return console.log(logPrefix, args)
-        case LogType.Table: return console.table(args)
-        case LogType.Dir: return console.dir(args)
-      }
+    if (this.logLevel > level) return
+
+    const logPrefix = `[${LogLevel[level].toUpperCase()}] `
+    switch (type) {
+      case LogType.Trace: return console.trace()
+      case LogType.Error: return console.error(logPrefix, args)
+      case LogType.Warn: return console.warn(logPrefix, args)
+      case LogType.Info: return console.info(logPrefix, args)
+      case LogType.Log: return console.log(logPrefix, args)
+      case LogType.Table: return console.table(args)
+      case LogType.Dir: return console.dir(args)
     }
   }
 }

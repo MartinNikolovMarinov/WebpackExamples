@@ -24,7 +24,7 @@ function mountView<TProps>(
   props: TProps,
   root: HTMLElement,
 ): void {
-  if (!View) {
+  if (View === undefined) {
     unmountComponentAtNode(root)
     return
   }
@@ -38,21 +38,21 @@ function mountView<TProps>(
   )
 }
 
-function normalizeViewDisplayName(View: React.ComponentClass, moduleId: string): void {
+function normalizeViewDisplayName<TProps>(View: React.ComponentClass<TProps>, moduleId: string): void {
   View.displayName = View.displayName !== undefined ? View.displayName : `${moduleId}-view`
 }
 
 function setRoot(this: jc.Module, next: jc.Func<void>, props?: { root?: HTMLElement }): void {
-  this.root = props ? props.root : null
+  this.root = props ? props.root : undefined
   next()
 }
 
 function unmountView(this: jc.Module, next: jc.Func<void>): void {
   next()
 
-  if (this.root === undefined) {
+  if (this.root) {
     unmountComponentAtNode(this.root)
-    this.root = null
+    this.root = undefined
   }
 }
 

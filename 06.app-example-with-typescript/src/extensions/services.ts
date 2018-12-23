@@ -44,7 +44,7 @@ function addService(this: jc.Core, name: string, serviceClass: ServiceClass, ...
 
 function getService<T extends object>(this: jc.Core, name: string): T {
   const serviceData = servicesContainer[name]
-  if (!serviceData) {
+  if (serviceData === undefined) {
     throw new Error(`getService(): ${name} service not found`)
   }
 
@@ -64,6 +64,10 @@ function getService<T extends object>(this: jc.Core, name: string): T {
 }
 
 function sandboxGetService<T extends object>(this: jc.Sandbox, name: string): T {
+  if (!this._extensionsOnlyCore.getService) {
+    throw new Error('sandboxGetService(): Internal Error No getService function')
+  }
+
   return this._extensionsOnlyCore.getService<T>(name)
 }
 

@@ -1,30 +1,41 @@
 {
+  "compileOnSave": false, // Leave this to webpack
   "compilerOptions": {
-    "outDir": "./dist/",
-    "baseUrl": ".",
-    "noImplicitAny": true,
-    "module": "commonjs",
-    "target": "es5",
-    "jsx": "react",
     "allowJs": true,
-    "sourceMap": true,
+    "allowSyntheticDefaultImports": false,
+    "alwaysStrict": true,
+    /**
+     * Setting baseUrl informs the compiler where to find modules.
+     * All module imports with non-relative names are assumed to be relative to the baseUrl.
+     */
+    "baseUrl": ".",
+    "charset": "utf8",
+    /*
+     * Provide full support for iterables in for..of, spread and destructuring when targeting ES5 or ES3.
+     */
+    "downlevelIteration": true,
+    "diagnostics": true,
     "emitBOM": true,
     "experimentalDecorators": true,
     "forceConsistentCasingInFileNames": true,
     "importHelpers": true,
-    "removeComments": true,
-    "typeRoots": [
-      "./node_modules/@types/**"
-    ],
-    "types": [
-      "react",
-      "react-dom"
-    ],
+    "jsx": "react",
+    "jsxFactory": "React.createElement",
     "lib": [
       "dom",
       "es6",
-      "es2015.promise"
+      "es2015.promise",
+      "scripthost"
     ],
+    "module": "es6",
+    "moduleResolution": "node",
+    "newLine": "LF",
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": false,
+    "outDir": "./dist/",
     "paths": {
       "~/*": [ "src/*" ],
       "@assets/*": [ "assets/*" ],
@@ -33,12 +44,26 @@
       "@services/*": [ "src/services/*" ],
       "@extensions/*": [ "src/extensions/*" ],
       "@config/*": [ "src/config/*" ],
-    }
+    },
+    "removeComments": true,
+    // "skipLibCheck": true, // Might want these option for performance reasons at some point.
+    "sourceMap": true,
+    "strictBindCallApply": true,
+    "strictFunctionTypes": true,
+    "strictNullChecks": false,
+    "suppressImplicitAnyIndexErrors": true,
+    "target": "es5",
+    "typeRoots": [
+       // Modules that have @types package installed, are included by default by this :
+      "node_modules/@types"
+    ],
+    "types": [
+      // Modules not strictly typed with @types package, should be declared here :
+      "justcore"
+    ]
   },
-  "exclude": [
-    "node_modules"
-  ],
   "include": [
+    // TypeScript source code roots :
     "src/**/*"
-  ],
+  ]
 }
