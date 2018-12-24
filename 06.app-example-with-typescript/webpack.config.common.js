@@ -14,10 +14,10 @@ const commonConfig = {
   entry: {
     /**
      * Here the application starts executing and webpack starts bundling.
-     * webpack starts generating it's dependency graph from index.tsx !
+     * webpack starts generating it's dependency graph from index.ts !
      * Every entry generates a different bundle with different dependency graph, in this case it is just one.
      */
-    index: path.resolve(SRC_DIR, 'index.tsx'),
+    index: path.resolve(SRC_DIR, 'index.ts'),
     styles: [
       path.resolve(SRC_DIR, 'styles', 'global.css'),
       path.resolve(SRC_DIR, 'styles', 'bulma.css')

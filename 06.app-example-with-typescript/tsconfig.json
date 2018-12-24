@@ -59,7 +59,8 @@
     ],
     "types": [
       // Modules not strictly typed with @types package, should be declared here :
-      "justcore"
+      "justcore",
+      "jest"
     ]
   },
   "include": [
