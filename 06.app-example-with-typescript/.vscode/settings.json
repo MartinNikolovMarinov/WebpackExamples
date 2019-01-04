@@ -1,5 +1,4 @@
 {
-  "typescript.suggest.paths": false,
   "tslint.configFile": "tslint.json",
   "path-intellisense.mappings": {
     "~": "${workspaceRoot}/src",
