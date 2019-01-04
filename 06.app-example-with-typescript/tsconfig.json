@@ -27,7 +27,7 @@
       "es2015.promise",
       "scripthost"
     ],
-    "module": "es6",
+    "module": "esnext",
     "moduleResolution": "node",
     "newLine": "LF",
     "noImplicitAny": true,

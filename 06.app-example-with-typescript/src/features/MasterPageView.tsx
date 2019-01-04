@@ -11,12 +11,11 @@ const Wrapper: any = styled.section`
   padding: 4em;
   background: papayawhip;
 `
-
 export interface Props {
   // sandbox: jc.Sandbox
 }
 
-export class MasterPageView extends React.Component<Props> {
+export default class MasterPageView extends React.Component<Props> {
   constructor(props: any) {
     super(props)
   }

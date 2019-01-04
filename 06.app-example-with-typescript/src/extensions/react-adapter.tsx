@@ -10,6 +10,14 @@ declare global {
         props: TProps,
         root: HTMLElement,
       ): void
+
+      mountAsyncView?<TProps>(
+        this: jc.Sandbox,
+        View: React.ExoticComponent<TProps>,
+        props: TProps,
+        root: HTMLElement,
+        fallback?: React.ReactNode,
+      ): void
     }
 
     interface Module {
@@ -33,6 +41,32 @@ function mountView<TProps>(
   render(
     <ErrorBoundary sandbox={this}>
       <View {...props} />
+    </ErrorBoundary>,
+    root,
+  )
+}
+
+function mountAsyncView<TProps>(
+  this: jc.Sandbox,
+  View: React.ExoticComponent<TProps>,
+  props: TProps,
+  root: HTMLElement,
+  fallback?: React.ReactNode,
+): void {
+  if (View === undefined) {
+    unmountComponentAtNode(root)
+    return
+  }
+
+  if (fallback === undefined) {
+    fallback = <div>...Loading</div>
+  }
+
+  render(
+    <ErrorBoundary sandbox={this}>
+      <React.Suspense fallback={fallback}>
+        <View {...props} />
+      </React.Suspense>
     </ErrorBoundary>,
     root,
   )
@@ -62,6 +96,7 @@ export function reactAdapter(): jc.Extension {
     install: (core): Partial<jc.PluginsMap> => {
       (function(sb: jc.Sandbox): void {
         sb.mountView = mountView
+        sb.mountAsyncView = mountAsyncView
       }(core.Sandbox.prototype))
 
       return {

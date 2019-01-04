@@ -24,7 +24,7 @@ app.init(() => {
   registerServices(app)
   registerModules(app)
 
-  app.router.route('/', () => {
+  app.router.route('/', (match: jc.RouteMatch) => {
     app.startModule(app.constants.MODULE_MASTER_PAGE, {
       props: {
         root: document.getElementById('root'),
