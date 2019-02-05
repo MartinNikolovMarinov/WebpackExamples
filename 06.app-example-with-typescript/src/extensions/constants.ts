@@ -12,6 +12,7 @@ declare global {
 
 class Constants {
   public readonly MODULE_MASTER_PAGE: string = 'root'
+  public readonly EXAMPLE_FEATURE: string = 'example'
 }
 
 export function constants(): jc.Extension {

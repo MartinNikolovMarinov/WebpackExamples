@@ -1,4 +1,5 @@
 import { registerModules } from '@config/module-config'
+import { registerRoutes } from '@config/routes-config'
 import { registerServices } from '@config/service-config'
 import { constants } from '@extensions/constants'
 import { mobxAdapter } from '@extensions/mobx-adapter'
@@ -18,15 +19,7 @@ app.use([
 ])
 
 app.init(() => {
-  // On INIT logic here
   registerServices(app)
   registerModules(app)
-
-  app.router.route('/', (match: jc.RouteMatch) => {
-    app.startModule(app.constants.MODULE_MASTER_PAGE, {
-      props: {
-        root: document.getElementById('root'),
-      },
-    })
-  })
+  registerRoutes(app)
 })
