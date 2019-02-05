@@ -1,5 +1,6 @@
 import * as React from 'react'
 import styled from 'styled-components'
+import { Props } from './MasterPageProps'
 
 const Title: any = styled.h1`
   font-size: 1.5em;
@@ -11,9 +12,6 @@ const Wrapper: any = styled.section`
   padding: 4em;
   background: papayawhip;
 `
-export interface Props {
-  // sandbox: jc.Sandbox
-}
 
 export default class MasterPageView extends React.Component<Props> {
   constructor(props: any) {

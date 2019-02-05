@@ -34,6 +34,7 @@
     "optimize-css-assets-webpack-plugin": "5.0.1",
     "postcss-loader": "3.0.0",
     "react": "16.6.3",
+    "react-async-component": "2.0.0",
     "react-dom": "16.6.3",
     "rimraf": "2.6.2",
     "style-loader": "0.23.1",

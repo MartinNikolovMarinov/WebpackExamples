@@ -1,13 +1,5 @@
-import { Props } from './MasterPageView'
-import { asyncComponent } from './AsyncComponent'
-
+import { Props } from './MasterPageProps'
 type MasterPageType = typeof import('./MasterPageView')
-
-function load(): Promise<MasterPageType> {
-  return import('./MasterPageView');
-}
-
-const AsyncMasterPage = asyncComponent(load());
 
 export class MasterPageModule implements jc.Module {
   public root: HTMLElement
@@ -18,8 +10,10 @@ export class MasterPageModule implements jc.Module {
   }
 
   public init(): void {
-    this.sandbox.mountAsyncView<Props>(
-      AsyncMasterPage,
+    this.sandbox.mountView<Props>(
+      this.sandbox.asyncView<Props>({
+        resolve: async (): Promise<MasterPageType> => import('./MasterPageView'),
+      }),
       { sandbox: this.sandbox },
       this.root,
     )

@@ -10,13 +10,11 @@ import { Core } from 'justcore'
 const app: jc.Core = new Core()
 
 app.use([
-  // Extensions here
   constants(),
   services(),
   reactAdapter(),
   mobxAdapter(),
   router(),
-  // Use loginFlow(whenAuthorized)
 ])
 
 app.init(() => {

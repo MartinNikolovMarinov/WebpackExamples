@@ -1,23 +1,17 @@
 import { ErrorBoundary } from '@elements/error/ErrorBoundary'
 import * as React from 'react'
+import { asyncComponent, Configuration } from 'react-async-component'
 import { render, unmountComponentAtNode } from 'react-dom'
 
 declare global {
   namespace jc {
     interface Sandbox {
       mountView?<TProps>(
-        View: React.ComponentClass<TProps>,
+        View: React.ComponentType<TProps>,
         props: TProps,
         root: HTMLElement,
-      ): void
-
-      mountAsyncView?<TProps>(
-        this: jc.Sandbox,
-        View: React.ExoticComponent<TProps>,
-        props: TProps,
-        root: HTMLElement,
-        fallback?: React.ReactNode,
-      ): void
+      ): void,
+      asyncView<TProps>(config: Configuration<TProps>): React.ComponentType<TProps>
     }
 
     interface Module {
@@ -28,7 +22,7 @@ declare global {
 
 function mountView<TProps>(
   this: jc.Sandbox,
-  View: React.ComponentClass<TProps>,
+  View: React.ComponentType<TProps>,
   props: TProps,
   root: HTMLElement,
 ): void {
@@ -46,33 +40,11 @@ function mountView<TProps>(
   )
 }
 
-function mountAsyncView<TProps>(
-  this: jc.Sandbox,
-  View: React.ExoticComponent<TProps>,
-  props: TProps,
-  root: HTMLElement,
-  fallback?: React.ReactNode,
-): void {
-  if (View === undefined) {
-    unmountComponentAtNode(root)
-    return
-  }
-
-  if (fallback === undefined) {
-    fallback = <div>...Loading</div>
-  }
-
-  render(
-    <ErrorBoundary sandbox={this}>
-      <React.Suspense fallback={fallback}>
-        <View {...props} />
-      </React.Suspense>
-    </ErrorBoundary>,
-    root,
-  )
+function asyncView<TProps>(config: Configuration<TProps>): React.ComponentType<TProps> {
+  return asyncComponent(config)
 }
 
-function normalizeViewDisplayName<TProps>(View: React.ComponentClass<TProps>, moduleId: string): void {
+function normalizeViewDisplayName<TProps>(View: React.ComponentType<TProps>, moduleId: string): void {
   View.displayName = View.displayName !== undefined ? View.displayName : `${moduleId}-view`
 }
 
@@ -96,7 +68,7 @@ export function reactAdapter(): jc.Extension {
     install: (core): Partial<jc.PluginsMap> => {
       (function(sb: jc.Sandbox): void {
         sb.mountView = mountView
-        sb.mountAsyncView = mountAsyncView
+        sb.asyncView = asyncView
       }(core.Sandbox.prototype))
 
       return {
