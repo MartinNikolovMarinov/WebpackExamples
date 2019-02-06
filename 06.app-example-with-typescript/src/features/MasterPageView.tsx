@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { hot } from 'react-hot-loader'
 import styled from 'styled-components'
 import { Props } from './MasterPageProps'
 
@@ -13,7 +14,7 @@ const Wrapper: any = styled.section`
   background: papayawhip;
 `
 
-export default class MasterPageView extends React.Component<Props> {
+class MasterPageView extends React.Component<Props> {
   constructor(props: any) {
     super(props)
   }
@@ -27,3 +28,5 @@ export default class MasterPageView extends React.Component<Props> {
     )
   }
 }
+
+export default hot(module)(MasterPageView)

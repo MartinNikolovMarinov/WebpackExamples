@@ -80,9 +80,9 @@
       "arrow-call-signature",
       "property-declaration",
       // "variable-declaration",
-      "member-variable-declaration",
-      "object-destructuring",
-      "array-destructuring"
+      // "object-destructuring",
+      // "array-destructuring",
+      "member-variable-declaration"
     ],
     "typedef-whitespace": {
       "options": [

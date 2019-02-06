@@ -51,7 +51,7 @@ module.exports = (env) => {
         template: path.join(__dirname, 'index.html'), // path to the template.
         filename: 'index.html' // name for the generated file.
       }),
-      new webpack.HotModuleReplacementPlugin(),
+      // new webpack.HotModuleReplacementPlugin(),
       new ManifestPlugin({
         /**
          * Generates the webpack manifest file in the dist folder.

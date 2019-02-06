@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "preinstall": "node tools/pre-install-script.js",
     "clean": "rimraf dist",
     "start": "webpack-dev-server --config webpack.config.dev.js --hot --inline",
     "watch": "npm run clean && webpack --config webpack.config.dev.js --watch",
@@ -14,6 +15,18 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@types/moment": "2.13.0",
+    "chalk": "2.4.2",
+    "justcore": "1.0.2",
+    "mobx": "5.8.0",
+    "mobx-react": "5.4.3",
+    "mobx-react-devtools": "6.0.3",
+    "moment": "2.24.0",
+    "react": "16.6.3",
+    "react-async-component": "2.0.0",
+    "react-dom": "16.6.3"
+  },
+  "devDependencies": {
     "@babel/core": "7.2.2",
     "@babel/plugin-proposal-class-properties": "7.3.0",
     "@babel/plugin-proposal-decorators": "7.3.0",
@@ -32,18 +45,9 @@
     "file-loader": "2.0.0",
     "fork-ts-checker-webpack-plugin": "0.5.2",
     "html-webpack-plugin": "3.2.0",
-    "justcore": "1.0.2",
     "mini-css-extract-plugin": "0.5.0",
-    "mobx": "5.8.0",
-    "mobx-react": "5.4.3",
-    "mobx-react-devtools": "6.0.3",
-    "moment": "2.24.0",
     "optimize-css-assets-webpack-plugin": "5.0.1",
     "postcss-loader": "3.0.0",
-    "prune": "0.0.2",
-    "react": "16.6.3",
-    "react-async-component": "2.0.0",
-    "react-dom": "16.6.3",
     "react-hot-loader": "4.6.5",
     "rimraf": "2.6.2",
     "style-loader": "0.23.1",
@@ -62,5 +66,9 @@
     "webpack-dev-server": "3.1.14",
     "webpack-manifest-plugin": "2.0.4",
     "webpack-merge": "4.1.5"
+  },
+  "engines": {
+    "node": ">=10.0.0",
+    "npm": ">=6.0.0"
   }
 }
