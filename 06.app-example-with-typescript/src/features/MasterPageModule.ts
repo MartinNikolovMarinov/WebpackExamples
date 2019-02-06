@@ -7,6 +7,23 @@ export class MasterPageModule implements jc.Module {
 
   constructor(sandbox: jc.Sandbox) {
     this.sandbox = sandbox
+    this.sandbox.allowedPublishMessages({
+      [`${this.sandbox.constants.MESSAGE_ONE}`]: true,
+    })
+  }
+
+  public moduleWillSubscribe(): string[] {
+    return [
+      this.sandbox.constants.MESSAGE_ONE,
+    ]
+  }
+
+  public moduleDidReceiveMessage(message: jc.Message & {data?: string}): void {
+    switch (message.type) {
+      case this.sandbox.constants.MESSAGE_ONE:
+        this.sandbox.getService('log').log(this.sandbox.constants.MESSAGE_ONE, ': ' , message.data)
+        break
+    }
   }
 
   public init(): void {

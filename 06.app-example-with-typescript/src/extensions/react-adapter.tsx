@@ -11,7 +11,7 @@ declare global {
         props: TProps,
         root: HTMLElement,
       ): void,
-      asyncView<TProps>(config: Configuration<TProps>): React.ComponentType<TProps>
+      asyncView?<TProps>(config: Configuration<TProps>): React.ComponentType<TProps>
     }
 
     interface Module {
@@ -40,7 +40,7 @@ function mountView<TProps>(
   )
 }
 
-function asyncView<TProps>(config: Configuration<TProps>): React.ComponentType<TProps> {
+function asyncView<TProps>(this: jc.Sandbox, config: Configuration<TProps>): React.ComponentType<TProps> {
   return asyncComponent(config)
 }
 

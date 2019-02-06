@@ -20,6 +20,11 @@ class MasterPageView extends React.Component<Props> {
   }
 
   public render(): React.ReactNode {
+    this.props.sandbox.publishAsync({
+      type: this.props.sandbox.constants.MESSAGE_ONE,
+      data: 'Test',
+    })
+
     return (
       <Wrapper>
         <div className="L1" />
