@@ -342,7 +342,7 @@
     "no-var-before-return": false,
     "object-shorthand-properties-first": true,
     "parameter-properties": false,
-    "prefer-const-enum": true,
+    "prefer-const-enum": false,
     "no-unused": false,
     "naming-convention": [
       true,

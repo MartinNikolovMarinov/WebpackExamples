@@ -9,7 +9,7 @@ export enum LogLevel {
   NoLogging = 5,
 }
 
-const enum LogType {
+enum LogType {
   Trace = 0,
   Log = 1,
   Info = 2,

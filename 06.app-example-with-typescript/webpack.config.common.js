@@ -1,4 +1,5 @@
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
 const webpack = require('webpack')
 const path = require('path')
 
@@ -18,6 +19,10 @@ const commonConfig = {
      * Every entry generates a different bundle with different dependency graph, in this case it is just one.
      */
     index: path.resolve(SRC_DIR, 'index.ts'),
+    polyfills: [
+      // Required to support async/await
+      '@babel/polyfill',
+    ],
     styles: [
       path.resolve(SRC_DIR, 'styles', 'global.css'),
       path.resolve(SRC_DIR, 'styles', 'bulma.css')
@@ -58,16 +63,31 @@ const commonConfig = {
         }
       },
       {
-        test: /\.tsx?$/, // regex rule to distinguish file extensions.
+        test: /\.(j|t)sx?$/,
+        // this tells webpack, exactly where to look for files and not waste time in other folders :
+        include: [SRC_DIR],
         use: [
-          /**
-           * The loaders which should be applied. They are applied in reverse order.
-           * In this case ts-loader is first and cache-loader second.
-           */
           'cache-loader',
-          'ts-loader',
-        ],
-        include: [SRC_DIR], // this tells webpack, exactly where to look for files and not waste time in other folders.
+          {
+            loader: 'babel-loader',
+            options: {
+              cacheDirectory: true,
+              babelrc: false,
+              presets: [
+                '@babel/preset-env',
+                '@babel/preset-typescript',
+                '@babel/preset-react',
+              ],
+              plugins: [
+                // plugin-proposal-decorators is only needed if you're using experimental decorators in TypeScript
+                ['@babel/plugin-proposal-decorators', { legacy: true }],
+                ['@babel/plugin-proposal-class-properties', { loose: true }],
+                '@babel/plugin-syntax-dynamic-import',
+                'react-hot-loader/babel',
+              ],
+            },
+          }
+        ]
       },
       {
         test: /\.(png|jp(e*)g|svg)$/,
@@ -117,7 +137,16 @@ const commonConfig = {
      * !!
      */
     runtimeChunk: 'single' // Adds an additional chunk to each entrypoint containing only the runtime.
-  }
+  },
+  plugins: [
+    new ForkTsCheckerWebpackPlugin({
+      tsconfig: './tsconfig.json',
+      tslint: './tslint.json',
+      tslintAutoFix: false,
+      watch: [ './src' ],
+      reportFiles: [ 'src/**/*.{ts,tsx}' ]
+    }),
+  ]
 }
 
 module.exports = (env) => {
