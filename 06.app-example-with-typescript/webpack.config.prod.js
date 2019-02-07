@@ -11,7 +11,7 @@ module.exports = (env) => {
 
   const prodConfig = {
     output: {
-      publicPath: '.', // the url to the output directory resolved relative to the HTML page.
+      publicPath: './', // the url to the output directory resolved relative to the HTML page.
       filename: '[name].[id].[hash].bundle.js', // the filename template for entry chunks, with hash for production.
       chunkFilename: '[name].[hash].chunk.js' // the filename template for additional chunks, with hash for production.
     },

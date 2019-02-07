@@ -2,16 +2,15 @@ import { configure } from 'mobx'
 import { createElement } from 'react'
 import { render } from 'react-dom'
 
-function enableDevtools(): void {
-  require(['mobx-react-devtools'], (mobxDevtools) => {
-    const wrapper = document.createElement('div')
-    wrapper.id = 'mobx-devtools-wrapper'
-    document.body.appendChild(wrapper)
-    render(createElement(mobxDevtools.default), wrapper)
-  })
+async function enableDevtools(): Promise<void> {
+  const mobxDevtools = await import('mobx-react-devtools')
+  const wrapper = document.createElement('div')
+  wrapper.id = 'mobx-devtools-wrapper'
+  document.body.appendChild(wrapper)
+  render(createElement(mobxDevtools.default), wrapper)
 }
 
-function onAppInit(this: jc.Core, next: jc.Func<void>): void {
+async function onAppInit(this: jc.Core, next: jc.Func<void>): Promise<void> {
   next()
 
   if (this.getService('env').isProduction) {
@@ -23,7 +22,7 @@ function onAppInit(this: jc.Core, next: jc.Func<void>): void {
     computedRequiresReaction: true,
     disableErrorBoundaries: true,
   })
-  enableDevtools()
+  await enableDevtools()
 }
 
 export function mobxAdapter(): jc.Extension {
