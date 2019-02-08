@@ -137,7 +137,7 @@
     "no-invalid-this": true,
     "no-namespace": true,
     "no-misused-new": true,
-    "no-object-literal-type-assertion": true,
+    "no-object-literal-type-assertion": false,
     "no-return-await": true,
     "no-shadowed-variable": true,
     "no-sparse-arrays": true,
