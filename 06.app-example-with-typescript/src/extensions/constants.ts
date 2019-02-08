@@ -15,8 +15,6 @@ class Constants {
   public readonly HOME_PAGE: string = 'home'
   public readonly CONTACT_PAGE: string = 'contact'
   public readonly NEWS_PAGE: string = 'news'
-
-  public readonly ROUTE_CHANGE_MESSAGE: string = 'ROUTE_CHANGE_MESSAGE'
 }
 
 export function constants(): jc.Extension {

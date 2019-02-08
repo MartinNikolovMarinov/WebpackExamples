@@ -23,8 +23,6 @@ function checkMessage(this: jc.Module, next: jc.Func<void>, message: jc.Message)
 }
 
 function allowedPublishMessages(this: jc.Sandbox, allowedMessages: Record<string, boolean>): void {
-  // DEFAULT ALLOWED MESSAGES :
-  allowedMessages[`${this.constants.ROUTE_CHANGE_MESSAGE}`] = true
   moduleMessageMap.set(this.instanceId, allowedMessages)
 }
 

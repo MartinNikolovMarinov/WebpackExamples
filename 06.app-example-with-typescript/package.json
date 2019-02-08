@@ -16,6 +16,7 @@
   "license": "ISC",
   "dependencies": {
     "@types/moment": "2.13.0",
+    "@types/react-router-dom": "4.3.1",
     "chalk": "2.4.2",
     "justcore": "1.0.2",
     "mobx": "5.8.0",
@@ -23,7 +24,9 @@
     "moment": "2.24.0",
     "react": "16.6.3",
     "react-async-component": "2.0.0",
-    "react-dom": "16.6.3"
+    "react-dom": "16.6.3",
+    "react-router": "4.3.1",
+    "react-router-dom": "4.3.1"
   },
   "devDependencies": {
     "@babel/core": "7.2.2",
