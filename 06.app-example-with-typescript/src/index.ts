@@ -24,4 +24,8 @@ app.init(() => {
   registerServices(app)
   registerModules(app)
   registerRoutes(app)
+
+  app.startModule(app.constants.MASTER_PAGE, {
+    props: { root: document.getElementById('root') },
+  })
 })

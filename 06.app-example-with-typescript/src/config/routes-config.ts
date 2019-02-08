@@ -1,17 +1,25 @@
 export function registerRoutes(app: jc.Core): void {
-  app.router.route('/', (match: jc.RouteMatch) => {
-    app.startModule(app.constants.MODULE_MASTER_PAGE, {
-      props: {
-        root: document.getElementById('root'),
-      },
-    })
+  app.router.route('/home', (match: jc.RouteMatch) => {
+    const msg: msg.RouteChangeMsg = {
+      type: app.constants.ROUTE_CHANGE_MESSAGE,
+      match: match,
+    }
+    app.publishAsync(msg)
   })
 
-  app.router.route('/example', (match: jc.RouteMatch) => {
-    app.startModule(app.constants.EXAMPLE_FEATURE, {
-      props: {
-        root: document.getElementById('root'),
-      },
-    })
+  app.router.route('/news', (match: jc.RouteMatch) => {
+    const msg: msg.RouteChangeMsg = {
+      type: app.constants.ROUTE_CHANGE_MESSAGE,
+      match: match,
+    }
+    app.publishAsync(msg)
+  })
+
+  app.router.route('/contact', (match: jc.RouteMatch) => {
+    const msg: msg.RouteChangeMsg = {
+      type: app.constants.ROUTE_CHANGE_MESSAGE,
+      match: match,
+    }
+    app.publishAsync(msg)
   })
 }

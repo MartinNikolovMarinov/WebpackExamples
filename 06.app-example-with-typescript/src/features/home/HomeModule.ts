@@ -1,7 +1,7 @@
-import { Props } from './ExamplePageProps'
-type ViewType = typeof import('./ExamplePageView')
+import { Props } from './HomeProps'
+type ViewType = typeof import('./HomeView')
 
-export class ExamplePageModule implements jc.Module {
+export class HomeModule implements jc.Module {
   public root: HTMLElement
   public sandbox: jc.Sandbox
 
@@ -12,7 +12,7 @@ export class ExamplePageModule implements jc.Module {
   public init(): void {
     this.sandbox.mountView<Props>(
       this.sandbox.asyncView<Props>({
-        resolve: async (): Promise<ViewType> => import('./ExamplePageView'),
+        resolve: async (): Promise<ViewType> => import('./HomeView'),
       }),
       { sandbox: this.sandbox },
       this.root,

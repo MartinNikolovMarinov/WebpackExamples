@@ -1,2 +1,4 @@
 export { MasterPageModule } from './MasterPageModule'
-export { ExamplePageModule } from './example-feature/ExamplePageModule'
+export { HomeModule } from './home/HomeModule'
+export { ContactModule } from './contact/ContactModule'
+export { NewsModule } from './news/NewsModule'

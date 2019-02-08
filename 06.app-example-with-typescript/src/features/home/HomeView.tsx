@@ -1,13 +1,13 @@
 import * as moment from 'moment'
 import * as React from 'react'
 import { hot } from 'react-hot-loader'
-import { Props } from './ExamplePageProps'
+import { Props } from './HomeProps'
 
 interface State {
   time: moment.Moment
 }
 
-class ExamplePageView extends React.Component<Props, State> {
+class HomeView extends React.Component<Props, State> {
   constructor(props: any) {
     super(props)
     this.state = { time: null }
@@ -21,10 +21,10 @@ class ExamplePageView extends React.Component<Props, State> {
     const { time } = this.state
     return (
       <div>
-        Example With Moment Js {time ? time.seconds() : null}
+       HOME {time ? time.seconds() : null}
       </div>
     )
   }
 }
 
-export default hot(module)(ExamplePageView)
+export default hot(module)(HomeView)

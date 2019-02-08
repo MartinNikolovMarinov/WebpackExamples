@@ -1,3 +1,5 @@
+/// <reference path='./definitions/messages.d.ts' />
+
 declare var require: {
   <T>(path: string): T;
   (paths: string[], callback: (...modules: any[]) => void): void;

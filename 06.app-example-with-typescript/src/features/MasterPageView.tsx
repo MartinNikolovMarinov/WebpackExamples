@@ -1,35 +1,37 @@
+import { Module } from '@elements/module/Module'
+import { observer } from 'mobx-react'
 import * as React from 'react'
 import { hot } from 'react-hot-loader'
-import styled from 'styled-components'
 import { Props } from './MasterPageProps'
 
-const Title: any = styled.h1`
-  font-size: 1.5em;
-  text-align: center;
-  color: palevioletred;
-`
-
-const Wrapper: any = styled.section`
-  padding: 4em;
-  background: papayawhip;
-`
-
+@observer
 class MasterPageView extends React.Component<Props> {
   constructor(props: any) {
     super(props)
   }
 
   public render(): React.ReactNode {
-    this.props.sandbox.publishAsync({
-      type: this.props.sandbox.constants.MESSAGE_ONE,
-      data: 'Test',
-    })
-
+    const { store, sandbox } = this.props
     return (
-      <Wrapper>
-        <div className="L1" />
-        <Title>This is the main page</Title>
-      </Wrapper>
+      <div>
+        <ul>
+          <li>
+            <a href="#/home">Home</a>
+          </li>
+          <li>
+            <a href="#/news">News</a>
+          </li>
+          <li>
+            <a href="#/contact">Contact</a>
+          </li>
+        </ul>
+        <Module
+          key={store.currModuleId}
+          id={store.currModuleId}
+          sandbox={sandbox}
+          moduleProps={{ id: store.currModuleId }}
+        />
+      </div>
     )
   }
 }

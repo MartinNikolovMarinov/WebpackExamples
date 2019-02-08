@@ -11,9 +11,12 @@ declare global {
 }
 
 class Constants {
-  public readonly MODULE_MASTER_PAGE: string = 'root'
-  public readonly EXAMPLE_FEATURE: string = 'example'
-  public readonly MESSAGE_ONE: string = 'MESSAGE_ONE'
+  public readonly MASTER_PAGE: string = 'root'
+  public readonly HOME_PAGE: string = 'home'
+  public readonly CONTACT_PAGE: string = 'contact'
+  public readonly NEWS_PAGE: string = 'news'
+
+  public readonly ROUTE_CHANGE_MESSAGE: string = 'ROUTE_CHANGE_MESSAGE'
 }
 
 export function constants(): jc.Extension {
