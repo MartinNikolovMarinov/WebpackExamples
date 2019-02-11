@@ -18,6 +18,7 @@
     "@types/moment": "2.13.0",
     "@types/react-router-dom": "4.3.1",
     "chalk": "2.4.2",
+    "history": "4.7.2",
     "justcore": "1.0.2",
     "mobx": "5.8.0",
     "mobx-react": "5.4.3",

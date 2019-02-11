@@ -1,23 +1,38 @@
-import { computed, observable } from 'mobx'
+import * as React from 'react'
+import { Route, Switch } from 'react-router'
+import { Module } from '~/elements/module/Module'
 
 export class MasterPageStore {
-  public sandbox: jc.Sandbox
-  @observable public currRouteMatch: jc.RouteMatch
+  private readonly sandbox: jc.Sandbox
 
-  constructor(sb: jc.Sandbox) {
-    this.sandbox = sb
+  constructor(sandbox: jc.Sandbox) {
+    this.sandbox = sandbox
+    this.createModule = this.createModule.bind(this)
   }
 
-  @computed public get currModuleId(): string {
-    if (!this.currRouteMatch) {
-      return this.sandbox.constants.HOME_PAGE
-    }
+  public getRoutes(): React.ReactNode {
+    const routesMap: Record<string, jc.RouteConfig> = this.sandbox.routesMap
+    const routeIds: string[] = Object.keys(routesMap)
 
-    switch (this.currRouteMatch.path) {
-      case '/home': return this.sandbox.constants.HOME_PAGE
-      case '/news': return this.sandbox.constants.NEWS_PAGE
-      case '/contact': return this.sandbox.constants.CONTACT_PAGE
-      default: return null
+    const mappedRoutes = routeIds.map((id: string, index: number) => {
+      const currentRoute: jc.RouteConfig = routesMap[id]
+      return (
+        <Route
+          key={`${id} ${index}`}
+          path={currentRoute.path}
+          component={this.createModule(currentRoute)}
+        />
+      )
+    })
+
+    return (
+      <Switch>{mappedRoutes}</Switch>
+    )
+  }
+
+  private createModule(currentRoute: jc.RouteConfig): () => React.ReactElement<jc.Module> {
+    return (): React.ReactElement<jc.Module> => {
+      return (<Module id={currentRoute.moduleId} sandbox={this.sandbox} />)
     }
   }
 }

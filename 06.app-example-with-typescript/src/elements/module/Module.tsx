@@ -11,7 +11,7 @@ interface Props {
   className?: string
 }
 
-export class Module extends React.PureComponent<Props> {
+export class Module extends React.Component<Props> {
 
   private root: HTMLDivElement
 

@@ -1,4 +1,5 @@
 import { Props } from './MasterPageProps'
+import { MasterPageStore } from './MasterPageStore'
 type ViewType = typeof import('./MasterPageView')
 
 export class MasterPageModule implements jc.Module {
@@ -10,11 +11,14 @@ export class MasterPageModule implements jc.Module {
   }
 
   public init(): void {
-    this.sandbox.mountView<Props>(
-      this.sandbox.asyncView<Props>({
+    const sandbox = this.sandbox
+    const store = new MasterPageStore(sandbox)
+
+    sandbox.mountView<Props>(
+      sandbox.asyncView<Props>({
         resolve: async (): Promise<ViewType> => import('./MasterPageView'),
       }),
-      { sandbox: this.sandbox },
+      { sandbox, store },
       this.root,
     )
   }
